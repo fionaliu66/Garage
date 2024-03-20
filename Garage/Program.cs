@@ -2,7 +2,7 @@
 {
     internal class Program
     {
-        private GarageHandler handler = new GarageHandler();
+        private GarageHandler<Vehicle> handler = new GarageHandler<Vehicle> (new Garage<Vehicle>(10));
         static void Main(string[] args)
         {
             
