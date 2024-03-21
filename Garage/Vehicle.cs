@@ -18,5 +18,10 @@ namespace Garage
             Color = color;
             NumOfWheels = numOfWheels;
         }
+
+        public override string ToString()
+        {
+            return $"{this.GetType().Name}, {RegNr}, {Color}, Number Of Wheels: {NumOfWheels}";
+        }
     }
 }

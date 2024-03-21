@@ -14,5 +14,10 @@ namespace Garage
         }
 
         public int CylinderVol { get; set; }
+
+        public override string ToString()
+        {
+            return base.ToString() + $", Cylinder Volumn: {CylinderVol}dl";
+        }
     }
 }

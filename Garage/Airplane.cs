@@ -14,5 +14,10 @@ namespace Garage
         }
 
         public int NumOfEngines { get; set; }
+
+        public override string ToString()
+        {
+            return base.ToString() + $", Number of Engines: {NumOfEngines}";
+        }
     }
 }

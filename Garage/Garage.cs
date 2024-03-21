@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace Garage
 {
-    public class Garage<T> where T:Vehicle
+    public class Garage<T> where T : Vehicle
     {
-        private  int capacity;
+        private int capacity;
         private T[] list;
-        private int currentPos;
+        private int nextPos = 0;
 
         public Garage(int capacity)
         {
@@ -20,20 +20,32 @@ namespace Garage
 
         public void AddVehicle(T item)
         {
-            if (currentPos > capacity)
+            if (nextPos > capacity)
             {
-                //expand? 
-                _ = new T[capacity * 2];
-                T[] nList = list.ToArray();
-                list = nList;
+                ////expand? 
+                //T[] nList = new T[capacity * 2];
+                //Array.Copy(list, nList, list.Length);
+                //list = nList;
+                throw new InvalidOperationException("Array is full.");
             }
-            list[currentPos+1] = item;
-            currentPos++;
+            list[nextPos] = item;
+            nextPos++;
         }
 
         public void RemoveVehicle(T item)
         {
+            //TODO t may be defualt null?
+            var t = Array.Find(list, v => v.RegNr == item.RegNr);
 
+            Console.WriteLine(t.ToString());
+        }
+
+        public void GetAll()
+        {
+            for (int i = 0; i < list.Length && list[i] != null; i++)
+            {
+                Console.WriteLine(list[i]);
+            }
         }
     }
 }

@@ -14,5 +14,10 @@ namespace Garage
         }
 
         public double Length { get; set; }
+
+        public override string ToString()
+        {
+            return base.ToString() + $", Length: {Length}";
+        }
     }
 }

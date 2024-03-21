@@ -24,5 +24,9 @@ namespace Garage
         {
             garage.RemoveVehicle(item);
         }
+        public void GetAllVehicle()
+        {
+            garage.GetAll();
+        }
     }
 }
