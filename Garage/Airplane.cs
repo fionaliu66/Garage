@@ -8,12 +8,12 @@ namespace Garage
 {
     public class Airplane : Vehicle
     {
-        public Airplane(string regNr, string color, int numOfWheels, int numOfEngines) : base(regNr, color, numOfWheels)
+        public Airplane(string regNr, string color, uint numOfWheels, uint numOfEngines) : base(regNr, color, numOfWheels)
         {
             NumOfEngines = numOfEngines;
         }
 
-        public int NumOfEngines { get; set; }
+        public uint NumOfEngines { get; set; }
 
         public override string ToString()
         {

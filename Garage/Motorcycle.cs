@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace Garage
 {
-    internal class Motercycle : Vehicle
+    internal class Motorcycle : Vehicle
     {
-        public Motercycle(string regNr, string color, int numOfWheels, int cylinderVol) : base(regNr, color, numOfWheels)
+        public Motorcycle(string regNr, string color, uint numOfWheels, uint cylinderVol) : base(regNr, color, numOfWheels)
         {
             CylinderVol = cylinderVol;
         }
 
-        public int CylinderVol { get; set; }
+        public uint CylinderVol { get; set; }
 
         public override string ToString()
         {

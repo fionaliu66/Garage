@@ -8,7 +8,7 @@ namespace Garage
 {
     public class Boat : Vehicle
     {
-        public Boat(string regNr, string color, int numOfWheels, double length) : base(regNr, color, numOfWheels)
+        public Boat(string regNr, string color, uint numOfWheels, double length) : base(regNr, color, numOfWheels)
         {
             Length = length;
         }

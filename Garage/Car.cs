@@ -14,7 +14,7 @@ namespace Garage
     }
     public class Car : Vehicle
     {
-        public Car(string regNr, string color, int numOfWheels, FuelType fuelType) : base(regNr, color, numOfWheels)
+        public Car(string regNr, string color, uint numOfWheels, FuelType fuelType) : base(regNr, color, numOfWheels)
         {
             Fuel = fuelType;
         }

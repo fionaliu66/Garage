@@ -11,9 +11,9 @@ namespace Garage
         public string RegNr { get; set; }
         public string Color {  get; set; }
 
-        public int NumOfWheels {  get; set; }
+        public uint NumOfWheels {  get; set; }
 
-        public Vehicle(string regNr, string color, int numOfWheels) { 
+        public Vehicle(string regNr, string color, uint numOfWheels) { 
             RegNr = regNr;
             Color = color;
             NumOfWheels = numOfWheels;

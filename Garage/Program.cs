@@ -1,4 +1,6 @@
-﻿namespace Garage
+﻿using GarageOne;
+
+namespace Garage
 {
     internal class Program
     {
@@ -11,7 +13,7 @@
             Airplane airplane = new Airplane("ABC123", "White", 8, 4);
             Car car = new Car("CBA123", "Blue", 4, FuelType.Gasoline);
             Boat boat = new Boat("CCC123", "White", 0, 5.0);
-            Motercycle motercycle = new Motercycle("BBB333", "Black", 2, 50);
+            Motorcycle motercycle = new Motorcycle("BBB333", "Black", 2, 50);
             Bus bus = new Bus("DDD333", "Yellow", 6, 120);
             handler.Add(airplane);
             handler.Add(car);
@@ -25,7 +27,7 @@
             Populate();
             while (true)
             {
-                Console.WriteLine("Please navigate through the menu by inputting the number \n(1, 2, 3 ,4 ,5 ,6, 0) of your choice"
+                Console.WriteLine("Please navigate through the menu by inputting the number \n(1, 2, 3 ,4 ,5 ,6 ,7 ,0) of your choice"
                     + "\n1. New Garage"
                     + "\n2. Park Car"
                     + "\n3. Remove Car"
@@ -50,7 +52,7 @@
 
                         break;
                     case '2':
-                        
+                        handler.AddVehicle();
                         break;
                     case '3':
                         Vehicle vehicle = new Vehicle("ABC123", "White", 8);
@@ -70,10 +72,14 @@
                         Environment.Exit(0);
                         break;
                     default:
-                        Console.WriteLine("Please enter some valid input (0, 1, 2, 3, 4)");
+                        Console.WriteLine("Please enter some valid input (0, 1, 2, 3, 4, 5, 6, 7)");
                         break;
                 }
             }
         }
+
+      
+
+
     }
 }
