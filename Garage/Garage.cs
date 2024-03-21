@@ -49,6 +49,7 @@ namespace Garage
         }
         public List<T> GetAll()
         {
+            //null check for empty elements in array
             var copyL = new List<T>();
             for (int i = 0; i < list.Length && list[i] != null; i++)
             {

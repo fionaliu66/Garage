@@ -19,7 +19,8 @@ namespace Garage
         //Add Vehicle to Garage
         public void AddVehicle()
         {
-            string regNr = UserInputHelper.AskForString("Type in Register Number");
+            //set up regNr to standard form
+            string regNr = UserInputHelper.AskForString("Type in Register Number").ToUpper();
             string color = UserInputHelper.AskForString("Type in Vehicle's color");
             uint numOfV = UserInputHelper.AskForUInt("Type in total number of wheels");
             //Ask for vehicle type and special propety
@@ -67,7 +68,7 @@ namespace Garage
                     v = new(regNr, color, numOfV);
                     break;
             }
-            
+            //why there should be a boxing here
             Add((T)v);
         }
         public void Add(T item)
@@ -78,7 +79,21 @@ namespace Garage
         {
             garage.RemoveVehicle(item);
         }
-        public void GetAllVehicle()
+        public void GetVehiclesByType()
+        {
+            var t = garage.GetAll();
+            var groupByType = t.GroupBy(v => v.GetType().Name)
+                              .Select(group => new
+                              {
+                                  GType = group.Key,
+                                  GCount = group.Count()
+                              });
+            foreach ( var group in groupByType)
+            {
+                Console.WriteLine($"Vehicle Type: {group.GType}, Count: {group.GCount}");
+            }
+        }
+        public void PrintAllVehicle()
         {
            var t =  garage.GetAll();       
            foreach (var v in t)
@@ -88,9 +103,13 @@ namespace Garage
         }
         public void GetVehicle(string s)
         {
+            s = s.ToUpper();
+            var item = garage.GetByRegNr(s);
             //use all cw here in handler, not in garage
-            if(garage.GetByRegNr(s) == null)
+            if (item == null)
                 Console.WriteLine("Cannot find this Vehicle");
+            else 
+                Console.WriteLine(item.ToString());
         }
     }
 }

@@ -11,6 +11,7 @@ namespace Garage
         static void Populate()
         {
             Airplane airplane = new Airplane("ABC123", "White", 8, 4);
+            Airplane airplane1 = new Airplane("ACD911", "Black", 8, 8);
             Car car = new Car("CBA123", "Blue", 4, FuelType.Gasoline);
             Boat boat = new Boat("CCC123", "White", 0, 5.0);
             Motorcycle motercycle = new Motorcycle("BBB333", "Black", 2, 50);
@@ -20,6 +21,7 @@ namespace Garage
             handler.Add(boat);
             handler.Add(motercycle);
             handler.Add(bus);
+            handler.Add(airplane1);
         }
         static void Main(string[] args)
         {
@@ -59,12 +61,14 @@ namespace Garage
                         handler.Remove(vehicle);
                         break;
                     case '4':
-                        handler.GetAllVehicle();
+                        handler.PrintAllVehicle();
                         break;
                     case '5':
+                        handler.GetVehiclesByType();
                         break;
                     case '6':
-                        handler.GetVehicle("AAA123");
+                        string s = UserInputHelper.AskForString("Enter the Register Number");
+                        handler.GetVehicle(s);
                         break;
                     case '7':
                         break;
