@@ -26,7 +26,17 @@ namespace Garage
         }
         public void GetAllVehicle()
         {
-            garage.GetAll();
+           var t =  garage.GetAll();       
+           foreach (var v in t)
+            {
+                Console.WriteLine(v.ToString());
+            }
+        }
+        public void GetVehicle(string s)
+        {
+            //use all cw here in handler, not in garage
+            if(garage.GetByRegNr(s) == null)
+                Console.WriteLine("Cannot find this Vehicle");
         }
     }
 }

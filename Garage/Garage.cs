@@ -35,17 +35,26 @@ namespace Garage
         public void RemoveVehicle(T item)
         {
             //TODO t may be defualt null?
-            var t = Array.Find(list, v => v.RegNr == item.RegNr);
+            var t = GetByRegNr(item.RegNr);
 
-            Console.WriteLine(t.ToString());
+            //Console.WriteLine(t.ToString());
         }
-
-        public void GetAll()
+        public T? GetByRegNr(string s)
         {
+            //since element in Array can be null. should use null check here to 
+            //avoid Null Reference Exception
+            var item = Array.Find(list, v => v != null&& v.RegNr == s);
+            //dufault value for T is null         
+            return  item;
+        }
+        public List<T> GetAll()
+        {
+            var copyL = new List<T>();
             for (int i = 0; i < list.Length && list[i] != null; i++)
             {
-                Console.WriteLine(list[i]);
+                copyL.Add(list[i]);
             }
+            return copyL;
         }
     }
 }

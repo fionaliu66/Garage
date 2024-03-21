@@ -62,6 +62,7 @@
                     case '5':
                         break;
                     case '6':
+                        handler.GetVehicle("AAA123");
                         break;
                     case '7':
                         break;
