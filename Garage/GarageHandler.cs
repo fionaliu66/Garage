@@ -2,19 +2,23 @@
 using GarageOne;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Garage
 {
     public class GarageHandler<T> where T : Vehicle
-    { 
+    {
         private Garage<T> garage;
         public GarageHandler(Garage<T> garage)
         {
             this.garage = garage;
         }
+
+
 
         //Add Vehicle to Garage
         public void AddVehicle()
@@ -30,11 +34,11 @@ namespace Garage
             {
                 case "Airplane":
                     uint numOfE = UserInputHelper.AskForUInt("How many Engines does you airplane has?");
-                    v = new Airplane(regNr, color, numOfV,numOfE);
+                    v = new Airplane(regNr, color, numOfV, numOfE);
                     break;
                 case "Boat":
                     double length = UserInputHelper.AskForDouble("How long is your boat?");
-                    v = new Boat(regNr,color,numOfV,length);
+                    v = new Boat(regNr, color, numOfV, length);
                     break;
                 case "Car":
                     string fuelT = UserInputHelper.AskForString("What is your fuel Type(Gasoline, Diesel or Electric)");
@@ -45,7 +49,7 @@ namespace Garage
                             fuelType = FuelType.Gasoline;
                             break;
                         case "Diesel":
-                            fuelType= FuelType.Diesel;
+                            fuelType = FuelType.Diesel;
                             break;
                         case "Electric":
                             fuelType = FuelType.Electric;
@@ -88,18 +92,122 @@ namespace Garage
                                   GType = group.Key,
                                   GCount = group.Count()
                               });
-            foreach ( var group in groupByType)
+            foreach (var group in groupByType)
             {
                 Console.WriteLine($"Vehicle Type: {group.GType}, Count: {group.GCount}");
             }
+
+        }
+
+
+
+        public void GetVehiclesByProp()
+        {
+            //Show current color group 
+            var t = garage.GetAll();
+            if (t.Count == 0)
+            {
+                Console.WriteLine("There is no vehicle in the garage");
+            }
+            else
+            {
+                //which property are you looking for 
+
+                Console.WriteLine("Which property would you like to search \n(1, 2, 0) of your choice"
+                   + "\n1. Search through all vehicles"
+                   + "\n2. Search by Vehicle type"
+                   + "\n0. Finish filtering and show result");
+                uint nav = UserInputHelper.AskForUInt("");
+                switch (nav)
+                {
+                    case 0:
+                        PrintAllVehicle();
+                        break;
+                    case 1:
+                        AskForColorAndWheels(t);
+                        break;
+                    case 2:
+                        //ask for type and the ask for color and wheels
+                        var elements = AskForType(t);
+                        if(elements.Count > 0)
+                        {
+                            foreach(var e in elements)
+                            {
+                                Console.WriteLine(e.ToString());
+                            }
+                        }
+                        break;
+                    default:
+                        Console.WriteLine("Invaid input");
+                        break;
+                }
+
+
+                //var num =t.Count(v => v.Color == "White");
+               
+
+               
+            }
+
+        }
+        private void AskForColorAndWheels(List<T> t)
+        {
+            var groupByColor = t.GroupBy(v => v.Color);                                        
+            string allColors = string.Join(", ", groupByColor.Select(g => g.Key));
+            string color = UserInputHelper.AskForString($"Which color are you searching? There are {allColors}");
+            var selectColor = groupByColor.Where( g => g.Key.Equals(color)).SelectMany(g => g.ToList()).ToList();
+            foreach(var e in selectColor)
+            {
+                Console.WriteLine(e);
+            }
+
+        }
+        private List<T> AskForType(List<T> t)
+        {           
+            var groupByType = t.GroupBy(v => v.GetType().Name);
+            string allTypes = string.Join(", ", groupByType.Select(v => v.Key));
+            string vType = UserInputHelper.AskForString($"Which type of vehicle would you like to see, there are {allTypes}");
+            //form input
+            vType = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(vType);
+            List<T> selectedList = null!;
+            switch (vType)
+            {
+                case "Airplane":
+                    selectedList = groupByType.Where( g=> g.Key.Equals("Airplane")).SelectMany(g=> g.ToList()).ToList();
+                    break;
+                case "Boat":
+                    selectedList = groupByType.Where(g => g.Key.Equals("Boat")).SelectMany(g => g.ToList()).ToList();
+                    break;
+                case "Bus":
+                    selectedList = groupByType.Where(g => g.Key.Equals("Bus")).SelectMany(g => g.ToList()).ToList();
+                    break;
+                case "Car":
+                    selectedList = groupByType.Where(g => g.Key.Equals("Car")).SelectMany(g => g.ToList()).ToList();
+                    break;
+                case "Motorcycle":
+                    selectedList = groupByType.Where(g => g.Key.Equals("Motorcycle")).SelectMany(g => g.ToList()).ToList();
+                    break;
+                default:
+                    Console.WriteLine("Invaid input");
+                    break;
+            }
+            return selectedList!;
         }
         public void PrintAllVehicle()
         {
-           var t =  garage.GetAll();       
-           foreach (var v in t)
+            var t = garage.GetAll();
+            if (t.Count == 0)
             {
-                Console.WriteLine(v.ToString());
+                Console.WriteLine("There is no vehicle in the garage");
             }
+            else
+            {
+                foreach (var v in t)
+                {
+                    Console.WriteLine(v.ToString());
+                }
+            }
+
         }
         public void GetVehicle(string s)
         {
@@ -108,7 +216,7 @@ namespace Garage
             //use all cw here in handler, not in garage
             if (item == null)
                 Console.WriteLine("Cannot find this Vehicle");
-            else 
+            else
                 Console.WriteLine(item.ToString());
         }
     }

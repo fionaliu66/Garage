@@ -51,7 +51,9 @@ namespace Garage
                 switch (input)
                 {
                     case '1':
-
+                        uint cap = UserInputHelper.AskForUInt("How many places would you like to have in you garage?");
+                        handler = new GarageHandler<Vehicle>(new Garage<Vehicle>(cap));
+                        Console.WriteLine($"Garage with {cap} place has been created");
                         break;
                     case '2':
                         handler.AddVehicle();
@@ -71,6 +73,7 @@ namespace Garage
                         handler.GetVehicle(s);
                         break;
                     case '7':
+                        handler.GetVehiclesByProp();
                         break;
                     case '0':
                         Environment.Exit(0);
@@ -82,7 +85,7 @@ namespace Garage
             }
         }
 
-      
+
 
 
     }

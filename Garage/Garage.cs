@@ -8,11 +8,11 @@ namespace Garage
 {
     public class Garage<T> where T : Vehicle
     {
-        private int capacity;
+        private uint capacity;
         private T[] list;
         private int nextPos = 0;
 
-        public Garage(int capacity)
+        public Garage(uint capacity)
         {
             this.capacity = capacity;
             this.list = new T[capacity];
