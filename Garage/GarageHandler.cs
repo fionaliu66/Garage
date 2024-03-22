@@ -155,12 +155,20 @@ namespace Garage
             var groupByColor = t.GroupBy(v => v.Color);                                        
             string allColors = string.Join(", ", groupByColor.Select(g => g.Key));
             string color = UserInputHelper.AskForString($"Which color are you searching? There are {allColors}");
-            var selectColor = groupByColor.Where( g => g.Key.Equals(color)).SelectMany(g => g.ToList()).ToList();
-            foreach(var e in selectColor)
+            try
             {
-                Console.WriteLine(e);
-            }
+                var selectColor = groupByColor.Where(g => g.Key.Equals(color)).SelectMany(g => g.ToList()).ToList();
+                foreach (var e in selectColor)
+                {
+                    Console.WriteLine(e);
+                }
 
+            }
+            catch (ArgumentNullException ex)
+            {
+                Console.WriteLine("There is no such color", ex.Message);
+            }
+           
         }
         private List<T> AskForType(List<T> t)
         {           
