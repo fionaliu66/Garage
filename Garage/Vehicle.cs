@@ -8,12 +8,24 @@ namespace Garage
 {
     public class Vehicle
     {
-        public string RegNr { get; set; }
-        public string Color {  get; set; }
+        private string _registerNr;
+        public string RegNr
+        {
+            get { return _registerNr; }
+            set
+            {
+                if (IsValidRegNr(value))
+                    _registerNr = value;
+                else
+                    throw new ArgumentException("Invalid register number");
+            }
+        }
+        public string Color { get; set; }
 
-        public uint NumOfWheels {  get; set; }
+        public uint NumOfWheels { get; set; }
 
-        public Vehicle(string regNr, string color, uint numOfWheels) { 
+        public Vehicle(string regNr, string color, uint numOfWheels)
+        {
             RegNr = regNr;
             Color = color;
             NumOfWheels = numOfWheels;
@@ -22,6 +34,10 @@ namespace Garage
         public override string ToString()
         {
             return $"{this.GetType().Name}, {RegNr}, {Color}, Number Of Wheels: {NumOfWheels}";
+        }
+        private bool IsValidRegNr(string regN)
+        {
+            return !string.IsNullOrEmpty(regN) && regN.Length == 6;
         }
     }
 }

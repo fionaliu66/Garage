@@ -35,13 +35,8 @@ namespace Garage
             nextPos++;
         }
 
-        private void RemoveVehicle(T item)
-        {
-           
-        }
         public T? RemoveByRegNr(string s)
         {
-            Console.WriteLine(GetAll().Count);
             var list = GetAll();
             if(list.Count == 0)
             {
@@ -64,12 +59,9 @@ namespace Garage
                     }
                     vehicleArray[list.Count - 1] = null!;
                     nextPos--;
-                    Console.WriteLine(GetAll().Count);
                     return t;
                 }
-            }
-          
-
+            }        
         }
         public T? GetByRegNr(string s)
         {
@@ -91,9 +83,7 @@ namespace Garage
         }
         public bool isFull()
         {
-            if (GetAll().Count == capacity)
-                return true;
-            return false;
+            return GetAll().Count == capacity;
         }
     }
 }

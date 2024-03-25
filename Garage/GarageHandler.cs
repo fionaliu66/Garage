@@ -31,6 +31,7 @@ namespace Garage
             {
                 //why there should be a boxing here
                 Add(GenerateVehicle());
+                Console.WriteLine("Vehicle has been parked");
             }
         }
         private T GenerateVehicle()
