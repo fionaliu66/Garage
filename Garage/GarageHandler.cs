@@ -111,8 +111,7 @@ namespace Garage
             }
             else
             {
-                //which property are you looking for 
-
+                //Guide users to filter vehicles
                 Console.WriteLine("Which property would you like to search \n(1, 2, 0) of your choice"
                    + "\n1. Search through all vehicles"
                    + "\n2. Search by Vehicle type"
@@ -128,39 +127,57 @@ namespace Garage
                         break;
                     case 2:
                         //ask for type and the ask for color and wheels
-                        var elements = AskForType(t);
-                        if(elements.Count > 0)
+                        var elements = AskForType(t);                      
+                        if (elements.Count > 0)
                         {
-                            foreach(var e in elements)
+                            Console.WriteLine($"There are {elements.Count} {elements.First().GetType().Name} in the garage," +
+                                $"\n1. Countine with further filter, color and wheels."+
+                                "\n2. Stop filtering and show result");
+                            uint navi = UserInputHelper.AskForUInt("");
+                            switch (navi)
                             {
-                                Console.WriteLine(e.ToString());
+                                case 1:
+                                    AskForColorAndWheels(elements);
+                                    break;
+                                case 2:
+                                    foreach(var e in elements)
+                                    {
+                                        Console.WriteLine(e.ToString());
+                                    }
+                                    break;
                             }
+                        }
+                        else
+                        {
+                            Console.WriteLine("No such vehicle in Garage");
                         }
                         break;
                     default:
                         Console.WriteLine("Invaid input");
                         break;
-                }
-
-
-                //var num =t.Count(v => v.Color == "White");
-               
-
-               
+                }                           
             }
 
         }
         private void AskForColorAndWheels(List<T> t)
         {
+            //group vehicle by color 
+            //show user current color collection
             var groupByColor = t.GroupBy(v => v.Color);                                        
             string allColors = string.Join(", ", groupByColor.Select(g => g.Key));
             string color = UserInputHelper.AskForString($"Which color are you searching? There are {allColors}");
+            //try select color by using user input
             try
             {
                 var selectColor = groupByColor.Where(g => g.Key.Equals(color)).SelectMany(g => g.ToList()).ToList();
-                foreach (var e in selectColor)
+                //alternativ 1: return vehicle collection with choosen color 
+                //alternativ 2: filtrate wheels here 
+                uint wheelsNr = UserInputHelper.AskForUInt("How many wheels?");
+                var selectWheels = selectColor.Where(w => w.NumOfWheels == wheelsNr);
+                //loop list or return list
+                foreach( var v in selectWheels)
                 {
-                    Console.WriteLine(e);
+                    Console.WriteLine(v.ToString());
                 }
 
             }

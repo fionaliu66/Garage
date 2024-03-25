@@ -10,9 +10,9 @@ namespace Garage
 
         static void Populate()
         {
-            Airplane airplane = new Airplane("ABC123", "White", 8, 4);
+            Airplane airplane = new Airplane("ABC123", "White", 4, 4);
             Airplane airplane1 = new Airplane("ACD911", "Black", 8, 8);
-            Car car = new Car("CBA123", "Blue", 4, FuelType.Gasoline);
+            Car car = new Car("CBA123", "White", 4, FuelType.Gasoline);
             Boat boat = new Boat("CCC123", "White", 0, 5.0);
             Motorcycle motercycle = new Motorcycle("BBB333", "Black", 2, 50);
             Bus bus = new Bus("DDD333", "Yellow", 6, 120);
