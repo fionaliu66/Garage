@@ -9,53 +9,91 @@ namespace Garage
     public class Garage<T> where T : Vehicle
     {
         private uint capacity;
-        private T[] list;
+        private T[] vehicleArray;
         private int nextPos = 0;
 
         public Garage(uint capacity)
         {
             this.capacity = capacity;
-            this.list = new T[capacity];
+            this.vehicleArray = new T[capacity];
         }
 
         public void AddVehicle(T item)
         {
-            if (nextPos > capacity)
-            {
-                ////expand? 
-                //T[] nList = new T[capacity * 2];
-                //Array.Copy(list, nList, list.Length);
-                //list = nList;
-                throw new InvalidOperationException("Array is full.");
-            }
-            list[nextPos] = item;
+            //the position index starts with 0 and ends with 9
+            //if (nextPos > capacity - 1)
+            //{
+            //    //expand? 
+            //    T[] nList = new T[capacity * 2];
+            //    Array.Copy(list, nList, list.Length);
+            //    list = nList;
+
+            //    throw new InvalidOperationException("Garage is full.");
+
+            //}
+            vehicleArray[nextPos] = item;
             nextPos++;
         }
 
-        public void RemoveVehicle(T item)
+        private void RemoveVehicle(T item)
         {
-            //TODO t may be defualt null?
-            var t = GetByRegNr(item.RegNr);
+           
+        }
+        public T? RemoveByRegNr(string s)
+        {
+            Console.WriteLine(GetAll().Count);
+            var list = GetAll();
+            if(list.Count == 0)
+            {
+                return null;
+            }
+            else
+            {
+                var t = vehicleArray.FirstOrDefault(v => v.RegNr.Equals(s));
+                if(t == null)
+                {
+                    return null;
+                }
+                else
+                {
+                    //remove vehicle here manually, 
+                    int i = Array.IndexOf(vehicleArray, t);
+                    for(int j = i; j < list.Count -1 ; j++)
+                    {
+                        vehicleArray[j] = vehicleArray[j + 1];
+                    }
+                    vehicleArray[list.Count - 1] = null!;
+                    nextPos--;
+                    Console.WriteLine(GetAll().Count);
+                    return t;
+                }
+            }
+          
 
-            //Console.WriteLine(t.ToString());
         }
         public T? GetByRegNr(string s)
         {
             //since element in Array can be null. should use null check here to 
             //avoid Null Reference Exception
-            var item = Array.Find(list, v => v != null&& v.RegNr == s);
+            var item = Array.Find(vehicleArray, v => v != null && v.RegNr == s);
             //dufault value for T is null         
-            return  item;
+            return item;
         }
         public List<T> GetAll()
         {
             //null check for empty elements in array
             var copyL = new List<T>();
-            for (int i = 0; i < list.Length && list[i] != null; i++)
+            for (int i = 0; i < vehicleArray.Length && vehicleArray[i] != null; i++)
             {
-                copyL.Add(list[i]);
+                copyL.Add(vehicleArray[i]);
             }
             return copyL;
+        }
+        public bool isFull()
+        {
+            if (GetAll().Count == capacity)
+                return true;
+            return false;
         }
     }
 }

@@ -23,12 +23,27 @@ namespace Garage
         //Add Vehicle to Garage
         public void AddVehicle()
         {
-            //set up regNr to standard form
+            if (garage.isFull())
+            {
+                Console.WriteLine("Sorry, Garage is full");
+            }
+            else
+            {
+                //why there should be a boxing here
+                Add(GenerateVehicle());
+            }
+        }
+        private T GenerateVehicle()
+        {
+            //Generated from user input
             string regNr = UserInputHelper.AskForString("Type in Register Number").ToUpper();
             string color = UserInputHelper.AskForString("Type in Vehicle's color");
             uint numOfV = UserInputHelper.AskForUInt("Type in total number of wheels");
             //Ask for vehicle type and special propety
             string vType = UserInputHelper.AskForString("Which kind of vehicle is it? inputting the name \n(Airplane, Boat, Car ,Motorcycle ,Bus) of your choice");
+            //form input string to match class names
+            vType = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(vType);
+            color = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(color);
             Vehicle v;
             switch (vType)
             {
@@ -43,6 +58,7 @@ namespace Garage
                 case "Car":
                     string fuelT = UserInputHelper.AskForString("What is your fuel Type(Gasoline, Diesel or Electric)");
                     FuelType fuelType = FuelType.Gasoline;
+                    fuelT = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(fuelT);
                     switch (fuelT)
                     {
                         case "Gasoline":
@@ -72,16 +88,28 @@ namespace Garage
                     v = new(regNr, color, numOfV);
                     break;
             }
-            //why there should be a boxing here
-            Add((T)v);
+            return (T)v;
         }
         public void Add(T item)
         {
             garage.AddVehicle(item);
         }
-        public void Remove(T item)
+        public void Remove(string regNr)
         {
-            garage.RemoveVehicle(item);
+            //since Regnr should be primary key, it should allowed user to remove car
+            //by just giving the Regnr 
+            //And primary key should be unique
+            regNr = regNr.ToUpper();
+            var t = garage.RemoveByRegNr(regNr);
+            if(t == null)
+            {
+                Console.WriteLine("There is no such vehicle in garage");
+            }
+            else
+            {
+                Console.WriteLine($"Vehicle with register number {regNr} has been removed.");
+            }
+           
         }
         public void GetVehiclesByType()
         {
@@ -98,9 +126,6 @@ namespace Garage
             }
 
         }
-
-
-
         public void GetVehiclesByProp()
         {
             //Show current color group 
@@ -127,11 +152,11 @@ namespace Garage
                         break;
                     case 2:
                         //ask for type and the ask for color and wheels
-                        var elements = AskForType(t);                      
+                        var elements = AskForType(t);
                         if (elements.Count > 0)
                         {
                             Console.WriteLine($"There are {elements.Count} {elements.First().GetType().Name} in the garage," +
-                                $"\n1. Countine with further filter, color and wheels."+
+                                $"\n1. Countine with further filter, color and wheels." +
                                 "\n2. Stop filtering and show result");
                             uint navi = UserInputHelper.AskForUInt("");
                             switch (navi)
@@ -140,7 +165,7 @@ namespace Garage
                                     AskForColorAndWheels(elements);
                                     break;
                                 case 2:
-                                    foreach(var e in elements)
+                                    foreach (var e in elements)
                                     {
                                         Console.WriteLine(e.ToString());
                                     }
@@ -155,7 +180,7 @@ namespace Garage
                     default:
                         Console.WriteLine("Invaid input");
                         break;
-                }                           
+                }
             }
 
         }
@@ -163,7 +188,7 @@ namespace Garage
         {
             //group vehicle by color 
             //show user current color collection
-            var groupByColor = t.GroupBy(v => v.Color);                                        
+            var groupByColor = t.GroupBy(v => v.Color);
             string allColors = string.Join(", ", groupByColor.Select(g => g.Key));
             string color = UserInputHelper.AskForString($"Which color are you searching? There are {allColors}");
             //try select color by using user input
@@ -175,7 +200,7 @@ namespace Garage
                 uint wheelsNr = UserInputHelper.AskForUInt("How many wheels?");
                 var selectWheels = selectColor.Where(w => w.NumOfWheels == wheelsNr);
                 //loop list or return list
-                foreach( var v in selectWheels)
+                foreach (var v in selectWheels)
                 {
                     Console.WriteLine(v.ToString());
                 }
@@ -185,10 +210,10 @@ namespace Garage
             {
                 Console.WriteLine("There is no such color", ex.Message);
             }
-           
+
         }
         private List<T> AskForType(List<T> t)
-        {           
+        {
             var groupByType = t.GroupBy(v => v.GetType().Name);
             string allTypes = string.Join(", ", groupByType.Select(v => v.Key));
             string vType = UserInputHelper.AskForString($"Which type of vehicle would you like to see, there are {allTypes}");
@@ -198,7 +223,7 @@ namespace Garage
             switch (vType)
             {
                 case "Airplane":
-                    selectedList = groupByType.Where( g=> g.Key.Equals("Airplane")).SelectMany(g=> g.ToList()).ToList();
+                    selectedList = groupByType.Where(g => g.Key.Equals("Airplane")).SelectMany(g => g.ToList()).ToList();
                     break;
                 case "Boat":
                     selectedList = groupByType.Where(g => g.Key.Equals("Boat")).SelectMany(g => g.ToList()).ToList();

@@ -16,12 +16,21 @@ namespace Garage
             Boat boat = new Boat("CCC123", "White", 0, 5.0);
             Motorcycle motercycle = new Motorcycle("BBB333", "Black", 2, 50);
             Bus bus = new Bus("DDD333", "Yellow", 6, 120);
+            Vehicle v1 = new("ADC333", "Blue", 8);
+            Vehicle v3 = new("ADC333", "Blue", 8);
+            Vehicle v2 = new("ADC333", "Blue", 8);
+            Vehicle v4 = new("ADC333", "Blue", 8);
+
             handler.Add(airplane);
             handler.Add(car);
             handler.Add(boat);
             handler.Add(motercycle);
             handler.Add(bus);
             handler.Add(airplane1);
+            handler.Add(v1);
+            handler.Add(v2);
+            handler.Add(v3);
+            handler.Add(v4);
         }
         static void Main(string[] args)
         {
@@ -31,8 +40,8 @@ namespace Garage
             {
                 Console.WriteLine("Please navigate through the menu by inputting the number \n(1, 2, 3 ,4 ,5 ,6 ,7 ,0) of your choice"
                     + "\n1. New Garage"
-                    + "\n2. Park Car"
-                    + "\n3. Remove Car"
+                    + "\n2. Park Vehicle"
+                    + "\n3. Remove Vehicle"
                     + "\n4. List all parked vehicles"
                     + "\n5. List vehicle types and how many of each are in the garage"
                     + "\n6. Search Car by Register Number"
@@ -53,14 +62,15 @@ namespace Garage
                     case '1':
                         uint cap = UserInputHelper.AskForUInt("How many places would you like to have in you garage?");
                         handler = new GarageHandler<Vehicle>(new Garage<Vehicle>(cap));
-                        Console.WriteLine($"Garage with {cap} place has been created");
+                        Console.WriteLine($"Garage with {cap} places has been created");
                         break;
                     case '2':
                         handler.AddVehicle();
                         break;
                     case '3':
-                        Vehicle vehicle = new Vehicle("ABC123", "White", 8);
-                        handler.Remove(vehicle);
+                        //Vehicle vehicle = new Vehicle("ABC123", "White", 8);
+                        //handler.Remove(vehicle);
+                        handler.Remove(UserInputHelper.AskForString("Type in Register nummer"));
                         break;
                     case '4':
                         handler.PrintAllVehicle();
