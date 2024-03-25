@@ -17,9 +17,9 @@ namespace Garage
             Motorcycle motercycle = new Motorcycle("BBB333", "Black", 2, 50);
             Bus bus = new Bus("DDD333", "Yellow", 6, 120);
             Vehicle v1 = new("ADC333", "Blue", 8);
-            Vehicle v3 = new("ADC333", "Blue", 8);
-            Vehicle v2 = new("ADC333", "Blue", 8);
-            Vehicle v4 = new("ADC333", "Blue", 8);
+            Vehicle v3 = new("AEC333", "Blue", 8);
+            Vehicle v2 = new("AFC333", "Blue", 8);
+            Vehicle v4 = new("AHC333", "Blue", 8);
 
             handler.Add(airplane);
             handler.Add(car);
