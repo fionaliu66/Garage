@@ -45,7 +45,7 @@ namespace Garage
             else
             {
                 //var t = vehicleArray.FirstOrDefault(v => v.RegNr.Equals(s)); wrong linq search
-                var t = vehicleArray.FirstOrDefault(x => x.RegNr == s);           
+                var t = vehicleArray.FirstOrDefault(x => x.RegisterNr == s);           
                 if(t == null)
                 {
                     return null;
@@ -68,7 +68,7 @@ namespace Garage
         {
             //since element in Array can be null. should use null check here to 
             //avoid Null Reference Exception
-            var item = Array.Find(vehicleArray, v => v != null && v.RegNr == s);
+            var item = Array.Find(vehicleArray, v => v != null && v.RegisterNr == s);
             //dufault value for T is null         
             return item;
         }

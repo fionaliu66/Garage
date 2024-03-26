@@ -26,7 +26,7 @@ namespace Garage
                 }
             }
         }
-        public string RegNr { get; set; }
+       
         public string Color { get; set; }
 
         public uint NumOfWheels { get; set; }
@@ -40,7 +40,7 @@ namespace Garage
 
         public override string ToString()
         {
-            return $"{this.GetType().Name}  {RegNr}, {Color}, Number Of Wheels: {NumOfWheels}";
+            return $"{this.GetType().Name}, {RegisterNr}, {Color}, Number Of Wheels: {NumOfWheels}";
         }
 
         public bool IsValidRegisterNumber(string s)
