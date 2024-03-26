@@ -4,10 +4,8 @@ namespace Garage
 {
     internal class Program
     {
-        private static GarageHandler<Vehicle> handler = new GarageHandler<Vehicle>(new Garage<Vehicle>(10));
-
+        private static GarageOne.Interface.IGarageHandler<Vehicle> handler = new GarageHandler<Vehicle>(new Garage<Vehicle>(10));
         //populate some vehicles
-
         static void Populate()
         {
             Airplane airplane = new Airplane("ABC123", "White", 4, 4);
@@ -94,9 +92,5 @@ namespace Garage
                 }
             }
         }
-
-
-
-
     }
 }

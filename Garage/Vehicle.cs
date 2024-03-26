@@ -26,23 +26,18 @@ namespace Garage
                 }
             }
         }
-       
         public string Color { get; set; }
-
         public uint NumOfWheels { get; set; }
-
         public Vehicle(string regNr, string color, uint numOfWheels)
         {
             RegisterNr = regNr;
             Color = color;
             NumOfWheels = numOfWheels;
         }
-
         public override string ToString()
         {
             return $"{this.GetType().Name}, {RegisterNr}, {Color}, Number Of Wheels: {NumOfWheels}";
         }
-
         public bool IsValidRegisterNumber(string s)
         {
             return !string.IsNullOrEmpty(s) && s.Length == 6;

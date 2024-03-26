@@ -11,13 +11,11 @@ namespace Garage
         private uint capacity;
         private T[] vehicleArray;
         private int nextPos = 0;
-
         public Garage(uint capacity)
         {
             this.capacity = capacity;
             this.vehicleArray = new T[capacity];
         }
-
         public void AddVehicle(T item)
         {
             //the position index starts with 0 and ends with 9
@@ -34,7 +32,6 @@ namespace Garage
             vehicleArray[nextPos] = item;
             nextPos++;
         }
-
         public T? RemoveByRegNr(string s)
         {
             var list = GetAll();

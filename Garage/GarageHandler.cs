@@ -1,5 +1,6 @@
 ﻿
 using GarageOne;
+using GarageOne.Interface;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -10,17 +11,13 @@ using System.Threading.Tasks;
 
 namespace Garage
 {
-    public class GarageHandler<T> where T : Vehicle
+    public class GarageHandler<T> : IGarageHandler<T> where T : Vehicle
     {
         private Garage<T> garage;
         public GarageHandler(Garage<T> garage)
         {
             this.garage = garage;
         }
-
-
-
-        //Add Vehicle to Garage
         public void AddVehicle()
         {
             if (garage.isFull())
@@ -45,7 +42,6 @@ namespace Garage
             }
 
         }
-
         private T GenerateVehicle(string regNr)
         {
             //Generated from user input
@@ -102,7 +98,6 @@ namespace Garage
             }
             return (T)v;
         }
-
         public void Add(T item)
         {
             garage.AddVehicle(item);

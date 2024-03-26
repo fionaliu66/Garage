@@ -48,7 +48,6 @@ namespace GarageOne
 
             return answer;
         }
-
         public static uint AskForUInt(string prompt)
         {
             do
@@ -64,7 +63,6 @@ namespace GarageOne
                 }
             } while (true);
         }
-
         public static double AskForDouble(string prompt)
         {
             do
