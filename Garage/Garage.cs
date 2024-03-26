@@ -44,7 +44,8 @@ namespace Garage
             }
             else
             {
-                var t = vehicleArray.FirstOrDefault(v => v.RegNr.Equals(s));
+                //var t = vehicleArray.FirstOrDefault(v => v.RegNr.Equals(s)); wrong linq search
+                var t = vehicleArray.FirstOrDefault(x => x.RegNr == s);           
                 if(t == null)
                 {
                     return null;

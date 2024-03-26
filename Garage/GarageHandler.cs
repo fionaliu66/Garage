@@ -29,7 +29,8 @@ namespace Garage
             }
             else
             {
-                //why there should be a boxing here
+                //Since primary key should be unique
+                //should not able to park vehicle with same register number that has already exists in the garage
                 string regNr;
                 do
                 {
@@ -40,9 +41,9 @@ namespace Garage
                     }
                 } while (garage.GetByRegNr(regNr) != null);
                 Add(GenerateVehicle(regNr));
-
+                Console.WriteLine("Vehicle has been parked");
             }
-            Console.WriteLine("Vehicle has been parked");
+
         }
 
         private T GenerateVehicle(string regNr)
@@ -112,16 +113,22 @@ namespace Garage
             //by just giving the Regnr 
             //And primary key should be unique
             regNr = regNr.ToUpper();
-            var t = garage.RemoveByRegNr(regNr);
-            if (t == null)
+            if (regNr.Length != 6)
             {
-                Console.WriteLine("There is no such vehicle in garage");
+                Console.WriteLine("Invalid register number, should be 6 charater");
             }
             else
             {
-                Console.WriteLine($"Vehicle with register number {regNr} has been removed.");
+                var t = garage.RemoveByRegNr(regNr);
+                if (t == null)
+                {
+                    Console.WriteLine("There is no such vehicle in garage");
+                }
+                else
+                {
+                    Console.WriteLine($"Vehicle with register number {regNr} has been removed.");
+                }
             }
-
         }
         public void GetVehiclesByType()
         {
@@ -140,7 +147,7 @@ namespace Garage
         }
         public void GetVehiclesByProp()
         {
-            //Show current color group 
+            //Get current vehicles in garage, leave when there is no vehicle
             var t = garage.GetAll();
             if (t.Count == 0)
             {
