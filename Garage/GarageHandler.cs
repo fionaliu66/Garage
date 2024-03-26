@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace Garage
 {
-    public class GarageHandler<T> : IGarageHandler<T> where T : Vehicle
+    public class GarageHandler<T> : IHandler<T> where T : Vehicle
     {
         private Garage<T> garage;
         public GarageHandler(Garage<T> garage)
@@ -114,6 +114,7 @@ namespace Garage
             }
             else
             {
+                //get the copy of vehicle, so the original vehicle is safer
                 var t = garage.RemoveByRegNr(regNr);
                 if (t == null)
                 {
@@ -271,7 +272,12 @@ namespace Garage
                     Console.WriteLine(v.ToString());
                 }
             }
-
+            //cannot determinate whether garage is empty or not 
+            //foreach(T v in garage)
+            //{
+            //    if(v != null )
+            //    Console.WriteLine(v.ToString());
+            //}
         }
         public void GetVehicle(string s)
         {

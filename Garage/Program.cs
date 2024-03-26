@@ -4,7 +4,7 @@ namespace Garage
 {
     internal class Program
     {
-        private static GarageOne.Interface.IGarageHandler<Vehicle> handler = new GarageHandler<Vehicle>(new Garage<Vehicle>(10));
+        private static GarageOne.Interface.IHandler<Vehicle> handler = new GarageHandler<Vehicle>(new Garage<Vehicle>(10));
         //populate some vehicles
         static void Populate()
         {
@@ -32,7 +32,7 @@ namespace Garage
         }
         static void Main(string[] args)
         {
-
+          
             Populate();
             while (true)
             {

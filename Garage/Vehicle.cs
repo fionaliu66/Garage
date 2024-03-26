@@ -42,5 +42,13 @@ namespace Garage
         {
             return !string.IsNullOrEmpty(s) && s.Length == 6;
         }
+        public object Clone() {
+            Vehicle newV = (Vehicle)this.MemberwiseClone();
+            string newRegNr = new string(_registerNr.ToCharArray());
+            string newColor = new string(Color.ToCharArray());
+            newV.Color = newColor;
+            newV.RegisterNr = newRegNr;
+            return newV;
+        }
     }
 }

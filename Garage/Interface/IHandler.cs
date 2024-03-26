@@ -2,7 +2,7 @@
 
 namespace GarageOne.Interface
 {
-    public interface IGarageHandler<T> where T : Vehicle
+    public interface IHandler<T> where T : Vehicle
     {
         void Add(T item);
         void AddVehicle();
