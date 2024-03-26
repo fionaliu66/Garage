@@ -16,9 +16,11 @@ namespace GarageOne
             {
                 do
                 {
-                    Console.WriteLine($"{message}");
+                    if (!string.IsNullOrEmpty(message))
+                    {
+                        Console.WriteLine($"{message}");
+                    }                 
                     answer = Console.ReadLine() ?? "";
-
                     if (string.IsNullOrWhiteSpace(answer))
                     {
                         Console.WriteLine($"You must enter a valid text");
@@ -49,7 +51,6 @@ namespace GarageOne
 
         public static uint AskForUInt(string prompt)
         {
-
             do
             {
                 string input = AskForString(prompt);
