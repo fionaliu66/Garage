@@ -5,6 +5,8 @@ VisualStudioVersion = 17.9.34701.34
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GarageOne", "Garage\GarageOne.csproj", "{598C142A-C817-4B8B-AC03-3E2E3407FFD0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GarageOneTest", "GarageOneTest\GarageOneTest.csproj", "{4388D667-CEA4-49D6-B96A-C7DE7B243F87}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{598C142A-C817-4B8B-AC03-3E2E3407FFD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{598C142A-C817-4B8B-AC03-3E2E3407FFD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{598C142A-C817-4B8B-AC03-3E2E3407FFD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4388D667-CEA4-49D6-B96A-C7DE7B243F87}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4388D667-CEA4-49D6-B96A-C7DE7B243F87}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4388D667-CEA4-49D6-B96A-C7DE7B243F87}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4388D667-CEA4-49D6-B96A-C7DE7B243F87}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

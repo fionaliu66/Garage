@@ -42,6 +42,19 @@ namespace Garage
         {
             return !string.IsNullOrEmpty(s) && s.Length == 6;
         }
+        public override bool Equals(object? obj)
+        {
+            if(obj == null) 
+                return false;
+            if(!(obj is Vehicle))
+                return false;
+
+            return this.RegisterNr == ((Vehicle)obj).RegisterNr;
+        }
+        public override int GetHashCode()
+        {
+            return RegisterNr.GetHashCode();
+        }
         //public virtual object Clone() {
         //    Vehicle newV = (Vehicle)this.MemberwiseClone();
         //    string newRegNr = new string(_registerNr.ToCharArray());
@@ -50,5 +63,6 @@ namespace Garage
         //    newV.RegisterNr = newRegNr;
         //    return newV;
         //}
+
     }
 }
