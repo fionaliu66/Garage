@@ -1,4 +1,4 @@
-﻿using Garage.Interface;
+﻿
 using GarageOne;
 using System;
 using System.Collections.Generic;
@@ -30,14 +30,24 @@ namespace Garage
             else
             {
                 //why there should be a boxing here
-                Add(GenerateVehicle());
-                Console.WriteLine("Vehicle has been parked");
+                string regNr;
+                do
+                {
+                    regNr = UserInputHelper.AskForString("Type in Register Number").ToUpper();
+                    if (garage.GetByRegNr(regNr) != null)
+                    {
+                        Console.WriteLine("Vehicle with the same register number already exists in the garage.");
+                    }
+                } while (garage.GetByRegNr(regNr) != null);
+                Add(GenerateVehicle(regNr));
+
             }
+            Console.WriteLine("Vehicle has been parked");
         }
-        private T GenerateVehicle()
+
+        private T GenerateVehicle(string regNr)
         {
             //Generated from user input
-            string regNr = UserInputHelper.AskForString("Type in Register Number").ToUpper();
             string color = UserInputHelper.AskForString("Type in Vehicle's color");
             uint numOfV = UserInputHelper.AskForUInt("Type in total number of wheels");
             //Ask for vehicle type and special propety
@@ -91,6 +101,7 @@ namespace Garage
             }
             return (T)v;
         }
+
         public void Add(T item)
         {
             garage.AddVehicle(item);
@@ -102,7 +113,7 @@ namespace Garage
             //And primary key should be unique
             regNr = regNr.ToUpper();
             var t = garage.RemoveByRegNr(regNr);
-            if(t == null)
+            if (t == null)
             {
                 Console.WriteLine("There is no such vehicle in garage");
             }
@@ -110,7 +121,7 @@ namespace Garage
             {
                 Console.WriteLine($"Vehicle with register number {regNr} has been removed.");
             }
-           
+
         }
         public void GetVehiclesByType()
         {

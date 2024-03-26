@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,18 +9,7 @@ namespace Garage
 {
     public class Vehicle
     {
-        private string _registerNr;
-        public string RegNr
-        {
-            get { return _registerNr; }
-            set
-            {
-                if (IsValidRegNr(value))
-                    _registerNr = value;
-                else
-                    throw new ArgumentException("Invalid register number");
-            }
-        }
+        public string RegNr { get; set; }
         public string Color { get; set; }
 
         public uint NumOfWheels { get; set; }
@@ -35,9 +25,10 @@ namespace Garage
         {
             return $"{this.GetType().Name}, {RegNr}, {Color}, Number Of Wheels: {NumOfWheels}";
         }
-        private bool IsValidRegNr(string regN)
+       
+        public bool IsValidRegisterNumber(string s)
         {
-            return !string.IsNullOrEmpty(regN) && regN.Length == 6;
+            return !string.IsNullOrEmpty(s) && s.Length == 6;
         }
     }
 }
