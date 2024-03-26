@@ -13,8 +13,8 @@ namespace Garage
 {
     public class GarageHandler<T> : IHandler<T> where T : Vehicle
     {
-        private Garage<T> garage;
-        public GarageHandler(Garage<T> garage)
+        private IGarage<T> garage;
+        public GarageHandler(IGarage<T> garage)
         {
             this.garage = garage;
         }
@@ -114,7 +114,7 @@ namespace Garage
             }
             else
             {
-                //get the copy of vehicle, so the original vehicle is safer
+                //TODO: get the copy of vehicle, so the original vehicle is safer
                 var t = garage.RemoveByRegNr(regNr);
                 if (t == null)
                 {

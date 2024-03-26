@@ -5,10 +5,11 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using GarageOne.Interface;
 
 namespace Garage
 {
-    public class Garage<T> where T : Vehicle
+    public class Garage<T> : IGarage<T> where T : Vehicle
     {
         private uint capacity;
         private T[] vehicleArray;
@@ -37,15 +38,15 @@ namespace Garage
         public T? RemoveByRegNr(string s)
         {
             var list = GetAll();
-            if(list.Count == 0)
+            if (list.Count == 0)
             {
                 return null;
             }
             else
             {
                 //var t = vehicleArray.FirstOrDefault(v => v.RegNr.Equals(s)); wrong linq search
-                var t = vehicleArray.FirstOrDefault(x => x.RegisterNr == s);           
-                if(t == null)
+                var t = vehicleArray.FirstOrDefault(x => x.RegisterNr == s);
+                if (t == null)
                 {
                     return null;
                 }
@@ -53,15 +54,15 @@ namespace Garage
                 {
                     //remove vehicle here manually, 
                     int i = Array.IndexOf(vehicleArray, t);
-                    for(int j = i; j < list.Count -1 ; j++)
+                    for (int j = i; j < list.Count - 1; j++)
                     {
                         vehicleArray[j] = vehicleArray[j + 1];
                     }
                     vehicleArray[list.Count - 1] = null!;
                     nextPos--;
-                    return (T)t.Clone();
+                    return t;
                 }
-            }        
+            }
         }
         public T? GetByRegNr(string s)
         {
@@ -70,7 +71,7 @@ namespace Garage
             var item = Array.Find(vehicleArray, v => v != null && v.RegisterNr == s);
             //dufault value for T is null
             //safe return a copy if item        
-            return item == null ? null : (T)item.Clone();
+            return item; ;
         }
         public List<T> GetAll()
         {
@@ -92,6 +93,6 @@ namespace Garage
         {
             return GetAll().Count == capacity;
         }
-        public IEnumerator GetEnumerator() =>vehicleArray.GetEnumerator();
+        //public IEnumerator GetEnumerator() =>vehicleArray.GetEnumerator();
     }
 }
