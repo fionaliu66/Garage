@@ -25,7 +25,7 @@ namespace GarageOneTest
             //Act
             var respect = garage.RemoveByRegNr("CCC222");
             //Assert
-            Assert.Equal(respect,vehicle);
+            Assert.Equal(respect, vehicle);
         }
         [Fact]
         public void GetByRegNr_GetVehicleByRegNr_SuccessGet()
@@ -38,5 +38,27 @@ namespace GarageOneTest
             //Assert
             Assert.Equal(respect, v);
         }
+        [Fact]
+        public void GetAllVehicle_GetVehicleSum_SuccessCount()
+        {
+            //Arrange
+            Vehicle[] vehicles = [
+                new Vehicle("ABC123","White",8),
+                new Vehicle("ACC123","White",8),
+                new Vehicle("ADC123","White",8),
+                new Vehicle("AEC123","White",8),
+                new Vehicle("AFC123","White",8),
+              ];
+            int exceptSum = vehicles.Length;
+            //Act
+            foreach(var v in vehicles)
+            {
+                garage.AddVehicle(v);
+            }
+            int result = garage.GetAll().Count;
+            //Assert
+            Assert.Equal(exceptSum, result);
+        }
+
     }
 }
